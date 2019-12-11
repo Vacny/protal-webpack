@@ -49,7 +49,7 @@ let rules = [{
                     publicPath:'../',
                     minimize: true //css压缩
                 }
-            },'resolve-url-loader'],
+            },"resolve-url-loader"],
         })
     },
     {
