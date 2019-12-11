@@ -1,4 +1,4 @@
-import router from 'minrouter'
+import router from './router/minrouter.js'
 
 import './common/grid.locale-cn.js'
 import './common/jquery.jqGrid.min.js'
@@ -32,6 +32,7 @@ filePathArr.map(path => {
 
 
 router.addResMethod('view', function (req, res, path) {
+    console.log(path)
     $.ajax({
         method: 'get',
         url: '/view' + path + '/index.html'
@@ -49,5 +50,5 @@ router.addResMethod('view', function (req, res, path) {
     })
 })
 router.proxyLinks(document.querySelectorAll('a'))
-
+console.log(1111)
 router()
