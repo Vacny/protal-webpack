@@ -75,27 +75,31 @@ let rules = [{
             loader: 'url-loader',
             options: {
                 limit: 4096,
+                publicPath:'../images',
                 name: '[hash].[ext]',
-                // outputPath: function (fileName) {
-                //     return 'images/' + fileName // 后面要拼上这个 fileName 才行
-                // }
+                outputPath: function (fileName) {
+                    return 'images/' + fileName // 后面要拼上这个 fileName 才行
+                }
             }
         }]
     },
     {
         test: /\.css$/,
-         use: [ 'style-loader', 'css-loader','resolve-url-loader' ]
-        // use: ExtractTextPlugin.extract({
-        //     fallback: 'style-loader',
-        //     //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
-        //     use: [{
-        //         loader: 'css-loader',
-        //         options: {
-        //             publicPath:'../',
-        //             minimize: true //css压缩
-        //         }
-        //     },'resolve-url-loader'],
-        //   })
+        // use: [ 'style-loader', 'css-loader' ]
+        use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
+            use: [{
+                loader: 'css-loader',
+                options: {
+                    // root:path.resolve(__dirname, '../src/img'),
+                    alias: {
+                        '@': path.resolve(__dirname, '../src/img') // '~@/logo.png' 这种写法，会去找src/img/logo.png这个文件
+                    },
+                    minimize: true //css压缩
+                }
+            },"resolve-url-loader"],
+        })
     },
     {
         test: /\.less$/,
